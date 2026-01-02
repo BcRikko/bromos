@@ -23,7 +23,15 @@ const loadMemoData = () => {
         // 既存のメモデータにタイトルがない場合の処理
         Object.values(memoData).forEach(memo => {
             if (!memo.title) {
-                memo.title = `メモ ${Object.keys(memoData).length}`;
+                // タイトルがない場合は作成日時を使用
+                const createdAt = new Date(memo.createdAt);
+                memo.title = createdAt.toLocaleString('ja-JP', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }).replace(/\//g, '-');
             }
         });
     } else {
