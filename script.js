@@ -30,8 +30,9 @@ const loadMemoData = () => {
                     month: '2-digit',
                     day: '2-digit',
                     hour: '2-digit',
-                    minute: '2-digit'
-                }).replace(/\//g, '-');
+                    minute: '2-digit',
+                    second: '2-digit'
+                }).replace(/\//g, '-').replace(/:/g, '-');
             }
         });
     } else {
@@ -54,8 +55,9 @@ const createNewMemo = () => {
         month: '2-digit',
         day: '2-digit',
         hour: '2-digit',
-        minute: '2-digit'
-    }).replace(/\//g, '-');
+        minute: '2-digit',
+        second: '2-digit'
+    }).replace(/\//g, '-').replace(/:/g, '-');
 
     const newMemo = {
         id: newId,
@@ -134,8 +136,9 @@ const updateCurrentMemoTitle = () => {
                 month: '2-digit',
                 day: '2-digit',
                 hour: '2-digit',
-                minute: '2-digit'
-            }).replace(/\//g, '-');
+                minute: '2-digit',
+                second: '2-digit'
+            }).replace(/\//g, '-').replace(/:/g, '-');
         } else {
             memoData[currentMemoId].title = memoTitleElement.value;
         }
