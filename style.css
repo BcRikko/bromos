@@ -39,6 +39,14 @@ h1 {
     background-color: #45a049;
 }
 
+#clear-all {
+    background-color: #f44336;
+}
+
+#clear-all:hover {
+    background-color: #d32f2f;
+}
+
 .main-container {
     display: flex;
     gap: 20px;
