@@ -14,10 +14,15 @@
             <button id="remove-note">Remove Note</button>
             <button id="clear-all">Clear All</button>
         </div>
-        <div class="memo-container">
-            <select id="memo-list"></select>
-            <input type="text" id="memo-title" placeholder="メモのタイトルを入力してください...">
-            <textarea id="memo" placeholder="ここにメモを入力してください..."></textarea>
+        <div class="main-container">
+            <div class="memo-editor">
+                <input type="text" id="memo-title" placeholder="メモのタイトルを入力してください...">
+                <textarea id="memo" placeholder="ここにメモを入力してください..."></textarea>
+            </div>
+            <div class="memo-list-container">
+                <h2>メモ一覧</h2>
+                <ul id="memo-list-right"></ul>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

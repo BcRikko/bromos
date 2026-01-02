@@ -1,7 +1,7 @@
 // 要素の取得
 const memoElement = document.getElementById('memo');
 const memoTitleElement = document.getElementById('memo-title');
-const memoListElement = document.getElementById('memo-list');
+const memoListRightElement = document.getElementById('memo-list-right');
 const addNoteButton = document.getElementById('add-note');
 const removeNoteButton = document.getElementById('remove-note');
 const clearAllButton = document.getElementById('clear-all');
@@ -80,21 +80,33 @@ const selectMemo = (memoId) => {
     memoElement.value = memoData[memoId].content || '';
     memoTitleElement.value = memoData[memoId].title || '';
 
-    // 選択中のメモをリストでハイライト
-    Array.from(memoListElement.options).forEach(option => {
-        option.selected = option.value === memoId;
+    // 右側のメモリストでアクティブなメモをハイライト
+    const listItems = memoListRightElement.querySelectorAll('.memo-list-item');
+    listItems.forEach(item => {
+        if (item.dataset.id === memoId) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
     });
 };
 
 // メモリストをレンダリングする
 const renderMemoList = () => {
-    memoListElement.innerHTML = '';
+    memoListRightElement.innerHTML = '';
 
     Object.values(memoData).forEach(memo => {
-        const option = document.createElement('option');
-        option.value = memo.id;
-        option.textContent = memo.title;
-        memoListElement.appendChild(option);
+        const listItem = document.createElement('li');
+        listItem.className = 'memo-list-item';
+        if (memo.id === currentMemoId) {
+            listItem.classList.add('active');
+        }
+        listItem.textContent = memo.title;
+        listItem.dataset.id = memo.id;
+        listItem.addEventListener('click', () => {
+            selectMemo(memo.id);
+        });
+        memoListRightElement.appendChild(listItem);
     });
 
     // 現在のメモを選択状態にする
@@ -174,11 +186,6 @@ const setupEventListeners = () => {
 
     // メモタイトルが変更されたら自動保存
     memoTitleElement.addEventListener('input', updateCurrentMemoTitle);
-
-    // メモリストの選択変更
-    memoListElement.addEventListener('change', (e) => {
-        selectMemo(e.target.value);
-    });
 
     // Add Noteボタン
     addNoteButton.addEventListener('click', () => {
