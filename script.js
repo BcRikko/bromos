@@ -4,6 +4,7 @@ const memoListRightElement = document.getElementById('memo-list-right');
 const addNoteButton = document.getElementById('add-note');
 const removeNoteButton = document.getElementById('remove-note');
 const clearAllButton = document.getElementById('clear-all');
+const exportNotesButton = document.getElementById('export-notes');
 
 // メモデータのキー
 const MEMO_DATA_KEY = 'memoData';
@@ -141,6 +142,23 @@ const clearAllMemos = () => {
     }
 };
 
+// メモをエクスポートする
+const exportNotes = () => {
+    // localStorageから最新のメモデータを取得
+    const dataStr = JSON.stringify(memoData, null, 2);
+
+    // データをBlobとして作成
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+
+    // ダウンロード用のリンクを作成
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = 'notes-export.json';
+
+    // リンクをクリックしてダウンロードを開始
+    link.click();
+};
+
 // イベントリスナーの設定
 const setupEventListeners = () => {
     // メモが変更されたら自動保存
@@ -157,6 +175,9 @@ const setupEventListeners = () => {
 
     // Clear Allボタン
     clearAllButton.addEventListener('click', clearAllMemos);
+
+    // Export Notesボタン
+    exportNotesButton.addEventListener('click', exportNotes);
 };
 
 // ページ読み込み時の初期化
