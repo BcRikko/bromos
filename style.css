@@ -1,68 +1,74 @@
 body {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+        Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     margin: 0;
-    padding: 10px;
-    background-color: #282a36;
-    color: #f8f8f2;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 0 auto;
-    background-color: #282a36;
-    padding: 10px;
-    border: 1px solid #44475a;
+    background-color: #ffffff;
+    padding: 30px;
+    border: 1px solid #e1e1e1;
     height: calc(100vh - 40px);
     box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #bd93f9;
-    text-decoration: underline;
-    font-weight: normal;
+    color: #000000;
+    font-weight: 300;
     margin-bottom: 30px;
-    font-size: 1.5em;
+    font-size: 2em;
+    letter-spacing: -0.5px;
 }
 
 .button-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
 .button-group button {
-    padding: 8px 12px;
+    padding: 10px 16px;
     margin: 0 5px;
-    background-color: #282a36;
-    color: #f8f8f2;
-    border: 1px solid #44475a;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #d1d1d1;
     cursor: pointer;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
+    font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+        Helvetica, sans-serif;
+    font-size: 0.9em;
+    border-radius: 3px;
+    transition: all 0.2s ease;
 }
 
 .button-group button:hover {
-    background-color: #44475a;
-    color: #f8f8f2;
+    background-color: #f8f8f8;
+    border-color: #c1c1c1;
 }
 
 #clear-all {
-    background-color: #282a36;
-    color: #ff5555;
-    border: 1px solid #ff5555;
+    background-color: #ffffff;
+    color: #ff0000;
+    border: 1px solid #ffcccc;
 }
 
 #clear-all:hover {
-    background-color: #ff5555;
-    color: #282a36;
+    background-color: #fff5f5;
+    border-color: #ff9999;
 }
 
 .main-container {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     margin-top: 20px;
-    height: calc(100% - 100px);
+    height: calc(100% - 120px);
 }
 
 .memo-editor {
@@ -74,9 +80,9 @@ h1 {
 }
 
 .memo-list-container {
-    width: 300px;
-    border-left: 1px solid #44475a;
-    padding-left: 20px;
+    width: 250px;
+    border-left: 1px solid #e1e1e1;
+    padding-left: 25px;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -84,10 +90,10 @@ h1 {
 
 .memo-list-container h2 {
     margin-top: 0;
-    color: #bd93f9;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 1.2em;
+    color: #000000;
+    font-weight: 300;
+    font-size: 1.3em;
+    letter-spacing: -0.3px;
 }
 
 #memo-list-right {
@@ -99,39 +105,46 @@ h1 {
 }
 
 .memo-list-item {
-    padding: 8px;
-    border: 1px solid #282a36;
-    margin-bottom: 2px;
+    padding: 10px 8px;
+    border: 1px solid #ffffff;
+    margin-bottom: 4px;
     cursor: pointer;
-    font-family: 'Courier New', Courier, monospace;
-    color: #f8f8f2;
+    font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+        Helvetica, sans-serif;
+    color: #000000;
+    font-size: 0.9em;
+    border-radius: 2px;
+    transition: all 0.1s ease;
 }
 
 .memo-list-item:hover {
-    background-color: #44475a;
-    color: #f8f8f2;
+    background-color: #f8f8f8;
+    border-color: #f0f0f0;
 }
 
 .memo-list-item.active {
-    background-color: #44475a;
-    color: #f8f8f2;
+    background-color: #f0f0f0;
+    border-color: #e1e1e1;
 }
-
 
 #memo {
     width: 100%;
     height: calc(100vh - 300px);
     min-height: 200px;
-    padding: 15px;
+    padding: 18px;
     font-size: 1em;
-    border: 1px solid #44475a;
-    background-color: #282a36;
-    color: #f8f8f2;
-    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #d1d1d1;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+        Helvetica, sans-serif;
     resize: vertical;
     box-sizing: border-box;
+    border-radius: 2px;
+    transition: border-color 0.2s ease;
 }
 
 #memo:focus {
-    outline: 1px solid #bd93f9;
+    outline: none;
+    border-color: #a1a1a1;
 }
