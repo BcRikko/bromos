@@ -5,11 +5,13 @@ const addNoteButton = document.getElementById('add-note');
 const removeNoteButton = document.getElementById('remove-note');
 const clearAllButton = document.getElementById('clear-all');
 const exportNotesButton = document.getElementById('export-notes');
-const importNotesButton = document.getElementById('import-notes'); // 追加
-const importFileInput = document.getElementById('import-file'); // 追加
+const importNotesButton = document.getElementById('import-notes');
+const importFileInput = document.getElementById('import-file');
+const themeSwitch = document.getElementById('theme-switch'); // テーマスイッチを追加
 
-// メモデータのキー
+// 定数
 const MEMO_DATA_KEY = 'memoData';
+const THEME_KEY = 'theme'; // テーマ設定用のキーを追加
 
 // 現在選択中のメモID
 let currentMemoId = null;
@@ -211,6 +213,36 @@ const importNotes = (event) => {
     reader.readAsText(file);
 };
 
+// テーマを設定する関数
+const setTheme = (theme) => {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeSwitch.checked = true;
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeSwitch.checked = false;
+    }
+
+    // テーマをLocalStorageに保存
+    localStorage.setItem(THEME_KEY, theme);
+};
+
+// 現在のテーマをLocalStorageから読み込む関数
+const loadTheme = () => {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        // システムのテーマ設定をチェック
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        if (prefersDarkScheme.matches) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    }
+};
+
 // リサイズハンドラーの設定
 const setupResizeHandler = () => {
     const resizeHandle = document.getElementById('resize-handle');
@@ -271,10 +303,20 @@ const setupEventListeners = () => {
 
     // ファイル選択時の処理
     importFileInput.addEventListener('change', importNotes);
+
+    // テーマ切り替え
+    themeSwitch.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    });
 };
 
 // ページ読み込み時の初期化
 window.addEventListener('DOMContentLoaded', () => {
+    loadTheme(); // テーマを読み込む
     loadMemoData();
     renderMemoList();
     setupEventListeners();

@@ -1,3 +1,83 @@
+/* テーマ切り替えスイッチ */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 0 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* ライトモード（デフォルト） */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --container-bg: #ffffff;
+    --border-color: #e1e1e1;
+    --button-bg: #ffffff;
+    --button-text: #000000;
+    --button-border: #d1d1d1;
+    --button-hover-bg: #f8f8f8;
+    --button-hover-border: #c1c1c1;
+    --clear-button-text: #ff0000;
+    --clear-button-border: #ffcccc;
+    --clear-button-hover-bg: #fff5f5;
+    --clear-button-hover-border: #ff9999;
+    --import-button-text: #0000ff;
+    --import-button-border: #ccccff;
+    --import-button-hover-bg: #f5f5ff;
+    --import-button-hover-border: #9999ff;
+    --memo-list-active-bg: #f0f0f0;
+    --memo-list-hover-bg: #f8f8f8;
+    --focus-border-color: #a1a1a1;
+    --resize-handle-bg: #e1e1e1;
+    --resize-handle-hover-bg: #d1d1d1;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         Helvetica, sans-serif;
@@ -5,16 +85,16 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 20px;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .container {
     max-width: 960px;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: var(--container-bg);
     padding: 30px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid var(--border-color);
     height: calc(100vh - 40px);
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -22,7 +102,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #000000;
+    color: var(--text-color);
     font-weight: 300;
     margin-bottom: 30px;
     font-size: 2em;
@@ -37,9 +117,9 @@ h1 {
 .button-group button {
     padding: 10px 16px;
     margin: 0 5px;
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #d1d1d1;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-border);
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         Helvetica, sans-serif;
@@ -49,30 +129,30 @@ h1 {
 }
 
 .button-group button:hover {
-    background-color: #f8f8f8;
-    border-color: #c1c1c1;
+    background-color: var(--button-hover-bg);
+    border-color: var(--button-hover-border);
 }
 
 #clear-all {
-    background-color: #ffffff;
-    color: #ff0000;
-    border: 1px solid #ffcccc;
+    background-color: var(--button-bg);
+    color: var(--clear-button-text);
+    border: 1px solid var(--clear-button-border);
 }
 
 #clear-all:hover {
-    background-color: #fff5f5;
-    border-color: #ff9999;
+    background-color: var(--clear-button-hover-bg);
+    border-color: var(--clear-button-hover-border);
 }
 
 #import-notes {
-    background-color: #ffffff;
-    color: #0000ff;
-    border: 1px solid #ccccff;
+    background-color: var(--button-bg);
+    color: var(--import-button-text);
+    border: 1px solid var(--import-button-border);
 }
 
 #import-notes:hover {
-    background-color: #f5f5ff;
-    border-color: #9999ff;
+    background-color: var(--import-button-hover-bg);
+    border-color: var(--import-button-hover-border);
 }
 
 .main-container {
@@ -84,13 +164,13 @@ h1 {
 
 .resize-handle {
     width: 5px;
-    background-color: #e1e1e1;
+    background-color: var(--resize-handle-bg);
     cursor: col-resize;
     transition: background-color 0.2s ease;
 }
 
 .resize-handle:hover {
-    background-color: #d1d1d1;
+    background-color: var(--resize-handle-hover-bg);
 }
 
 .memo-editor {
@@ -105,7 +185,7 @@ h1 {
     width: 250px;
     min-width: 150px;
     max-width: 600px;
-    border-left: 1px solid #e1e1e1;
+    border-left: 1px solid var(--border-color);
     padding-left: 25px;
     display: flex;
     flex-direction: column;
@@ -114,7 +194,7 @@ h1 {
 
 .memo-list-container h2 {
     margin-top: 0;
-    color: #000000;
+    color: var(--text-color);
     font-weight: 300;
     font-size: 1.3em;
     letter-spacing: -0.3px;
@@ -130,25 +210,25 @@ h1 {
 
 .memo-list-item {
     padding: 10px 8px;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--container-bg);
     margin-bottom: 4px;
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         Helvetica, sans-serif;
-    color: #000000;
+    color: var(--text-color);
     font-size: 0.9em;
     border-radius: 2px;
     transition: all 0.1s ease;
 }
 
 .memo-list-item:hover {
-    background-color: #f8f8f8;
-    border-color: #f0f0f0;
+    background-color: var(--memo-list-hover-bg);
+    border-color: var(--button-hover-bg);
 }
 
 .memo-list-item.active {
-    background-color: #f0f0f0;
-    border-color: #e1e1e1;
+    background-color: var(--memo-list-active-bg);
+    border-color: var(--border-color);
 }
 
 #memo {
@@ -157,9 +237,9 @@ h1 {
     min-height: 200px;
     padding: 18px;
     font-size: 1em;
-    border: 1px solid #d1d1d1;
-    background-color: #ffffff;
-    color: #000000;
+    border: 1px solid var(--button-border);
+    background-color: var(--container-bg);
+    color: var(--text-color);
     font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         Helvetica, sans-serif;
     resize: vertical;
@@ -170,5 +250,35 @@ h1 {
 
 #memo:focus {
     outline: none;
-    border-color: #a1a1a1;
+    border-color: var(--focus-border-color);
+}
+
+/* ダークモード */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --container-bg: #1e1e1e;
+    --border-color: #333333;
+    --button-bg: #252525;
+    --button-text: #f0f0f0;
+    --button-border: #444444;
+    --button-hover-bg: #333333;
+    --button-hover-border: #555555;
+    --clear-button-text: #ff6666;
+    --clear-button-border: #553333;
+    --clear-button-hover-bg: #442222;
+    --clear-button-hover-border: #774444;
+    --import-button-text: #6699ff;
+    --import-button-border: #334466;
+    --import-button-hover-bg: #223355;
+    --import-button-hover-border: #446699;
+    --memo-list-active-bg: #333333;
+    --memo-list-hover-bg: #2a2a2a;
+    --focus-border-color: #6699cc;
+    --resize-handle-bg: #333333;
+    --resize-handle-hover-bg: #444444;
+}
+
+[data-theme="dark"] .container {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
