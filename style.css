@@ -64,6 +64,17 @@ h1 {
     border-color: #ff9999;
 }
 
+#import-notes {
+    background-color: #ffffff;
+    color: #0000ff;
+    border: 1px solid #ccccff;
+}
+
+#import-notes:hover {
+    background-color: #f5f5ff;
+    border-color: #9999ff;
+}
+
 .main-container {
     display: flex;
     gap: 40px;

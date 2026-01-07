@@ -5,6 +5,8 @@ const addNoteButton = document.getElementById('add-note');
 const removeNoteButton = document.getElementById('remove-note');
 const clearAllButton = document.getElementById('clear-all');
 const exportNotesButton = document.getElementById('export-notes');
+const importNotesButton = document.getElementById('import-notes'); // 追加
+const importFileInput = document.getElementById('import-file'); // 追加
 
 // メモデータのキー
 const MEMO_DATA_KEY = 'memoData';
@@ -159,6 +161,56 @@ const exportNotes = () => {
     link.click();
 };
 
+// メモをインポートする
+const importNotes = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // ファイルタイプのチェック
+    if (file.type !== 'application/json') {
+        alert('JSONファイルを選択してください。');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            // JSONデータを解析
+            const importedData = JSON.parse(e.target.result);
+
+            // データの検証
+            if (typeof importedData !== 'object' || importedData === null) {
+                throw new Error('無効なデータ形式です。');
+            }
+
+            // 現在のメモデータをクリアして新しいデータをセット
+            memoData = importedData;
+
+            // 現在選択中のメモIDをリセット
+            const ids = Object.keys(memoData);
+            currentMemoId = ids.length > 0 ? ids[0] : null;
+
+            // ローカルストレージに保存
+            saveMemoData();
+
+            // UIを更新
+            renderMemoList();
+            if (currentMemoId) {
+                selectMemo(currentMemoId);
+            } else {
+                memoElement.value = '';
+            }
+
+            alert('メモのインポートが完了しました。');
+        } catch (error) {
+            console.error('インポートエラー:', error);
+            alert('ファイルの読み込みまたは解析中にエラーが発生しました: ' + error.message);
+        }
+    };
+
+    reader.readAsText(file);
+};
+
 // リサイズハンドラーの設定
 const setupResizeHandler = () => {
     const resizeHandle = document.getElementById('resize-handle');
@@ -211,6 +263,14 @@ const setupEventListeners = () => {
 
     // Export Notesボタン
     exportNotesButton.addEventListener('click', exportNotes);
+
+    // Import Notesボタン
+    importNotesButton.addEventListener('click', () => {
+        importFileInput.click(); // ファイル選択ダイアログを開く
+    });
+
+    // ファイル選択時の処理
+    importFileInput.addEventListener('change', importNotes);
 };
 
 // ページ読み込み時の初期化
